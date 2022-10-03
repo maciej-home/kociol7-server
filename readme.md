@@ -14,7 +14,7 @@ cd kociol7-server
 chmod +x ./main.py
 pip install -r requirements.txt
 ```
-Edit `config.py` file adjusting to your needs
+Edit `config.py` file adjusting to your needs  
 If using `systemd`:
 ```bash
 sudo cp kociol7.service /etc/systemd/system/
