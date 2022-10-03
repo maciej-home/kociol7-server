@@ -1,0 +1,9 @@
+[Unit]
+Description=Kociol7
+
+[Service]
+ExecStart=/home/pi/kociol7-server/main.py
+Type=simple
+
+[Install]
+WantedBy=multi-user.target
