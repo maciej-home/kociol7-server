@@ -14,5 +14,6 @@ domoticz_password = 'kociol7'
 
 domoticz_last24h_avg_idx = 236
 domoticz_from_septeber_idx = 235
+domoticz_feeder_left_idx = 237
 
 milliseconds_per_1g = 310.73118

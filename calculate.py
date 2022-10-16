@@ -37,9 +37,9 @@ from_september_feeder_query = cur.fetchone()[0]
 from_september_feeder = 0
 if from_september_feeder_query is not None:
     from_september_feeder = from_september_feeder_query
-
-print(from_september_feeder - from_september)
+feeder_left = from_september_feeder - from_september
 
 if config.domoticz_enabled:
     requests.get(f'http://{config.domoticz_host}:{config.domoticz_port}/json.htm?type=command&param=udevice&idx={config.domoticz_last24h_avg_idx}&nvalue=0&svalue={last24h_avg}')
     requests.get(f'http://{config.domoticz_host}:{config.domoticz_port}/json.htm?type=command&param=udevice&idx={config.domoticz_from_septeber_idx}&nvalue=0&svalue={from_september}')
+    requests.get(f'http://{config.domoticz_host}:{config.domoticz_port}/json.htm?type=command&param=udevice&idx={config.domoticz_feeder_left_idx}&nvalue=0&svalue={feeder_left}')
