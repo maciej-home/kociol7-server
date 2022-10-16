@@ -9,6 +9,7 @@ import config
 conn = psycopg2.connect(f"dbname={config.dbname} user={config.user} host={config.host} password={config.password}")
 cur = conn.cursor()
 cur.execute("CREATE TABLE IF NOT EXISTS kociol7_feeder (id SERIAL PRIMARY KEY, time timestamp, value integer);")
+conn.commit()
 
 time_now = datetime.now()
 
