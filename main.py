@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
+from datetime import datetime
 import paho.mqtt.client as mqtt
 import psycopg2
-from datetime import datetime
 import config
 
 
@@ -13,7 +13,7 @@ def on_connect(client, userdata, flags, rc):
 
 def on_message(client, userdata, message):
     payload = int(message.payload.decode())
-    if payload > 10:
+    if payload > 1000:  # LEDs blink for a short time on power-on, we don't want to count that
         conn = psycopg2.connect(f"dbname={config.dbname} user={config.user} host={config.host} password={config.password}")
         cur = conn.cursor()
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")
