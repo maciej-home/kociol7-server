@@ -12,4 +12,5 @@ cur = conn.cursor()
 
 current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')
 cur.execute(f'INSERT INTO kociol7_feeder (time, value) VALUES (\'{current_time}\', {argv[1]})')
+conn.commit()
 requests.get(f'http://{config.domoticz_host}:{config.domoticz_port}/json.htm?type=command&param=switchlight&idx={config.domoticz_add_switch_idx}&switchcmd=Set%20Level&level=0')
