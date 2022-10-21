@@ -27,7 +27,7 @@ cur.execute(f'SELECT SUM(measurement_value) FROM kociol7 WHERE measurement_time 
 last24h_query = cur.fetchone()[0]
 last24h = 0
 if last24h_query is not None:
-    last24h = last24h_query / config.milliseconds_per_1g / 1000 / 3
+    last24h = last24h_query / config.milliseconds_per_1g / 1000
     last24h = round(last24h, 2)
 
 if time_now.month < 9:
