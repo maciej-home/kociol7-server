@@ -48,12 +48,13 @@ if from_september_feeder_query is not None:
     from_september_feeder = from_september_feeder_query
 feeder_left = from_september_feeder - from_september
 
-days_left = round(feeder_left / last24h_avg, 2)
+days_left = feeder_left / last24h_avg
 hours_left = days_left * 24
 if hours_left < 10:
     hours_left = round(hours_left, 1)
 else:
     hours_left = round(hours_left, 0)
+days_left = round(days_left, 0)
 
 if config.domoticz_enabled:
     requests.get(f'http://{config.domoticz_host}:{config.domoticz_port}/json.htm?type=command&param=udevice&idx={config.domoticz_last24h_avg_idx}&nvalue=0&svalue={last24h_avg}')
