@@ -17,5 +17,7 @@ domoticz_last24h_idx = 499
 domoticz_from_septeber_idx = 235
 domoticz_feeder_left_idx = 237
 domoticz_add_switch_idx = 239
+domoticz_days_left_idx = 240
+domoticz_hours_left_idx = 245
 
 milliseconds_per_1g = 310.73118
