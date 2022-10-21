@@ -13,6 +13,7 @@ domoticz_login = 'kociol7'
 domoticz_password = 'kociol7'
 
 domoticz_last24h_avg_idx = 236
+domoticz_last24h_idx = 499
 domoticz_from_septeber_idx = 235
 domoticz_feeder_left_idx = 237
 domoticz_add_switch_idx = 239
