@@ -25,7 +25,7 @@ def on_message(client, userdata, message):
 
 conn = psycopg2.connect(f"dbname={config.dbname} user={config.user} host={config.host} password={config.password}")
 cur = conn.cursor()
-cur.execute("CREATE TABLE IF NOT EXISTS kociol7 (id serial PRIMARY KEY, measurement_time timestamp, measurement_value integer);")
+cur.execute("CREATE TABLE IF NOT EXISTS kociol7 (id SERIAL PRIMARY KEY, measurement_time timestamp, measurement_value integer);")
 conn.commit()
 conn.close()
 

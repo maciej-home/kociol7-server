@@ -13,6 +13,15 @@ domoticz_login = 'kociol7'
 domoticz_password = 'kociol7'
 
 domoticz_last24h_avg_idx = 236
+domoticz_last24h_idx = 499
 domoticz_from_septeber_idx = 235
+domoticz_feeder_left_idx = 237
+domoticz_add_switch_idx = 239
+domoticz_days_left_idx = 240
+domoticz_hours_left_idx = 245
+domoticz_last_month_idx = 455
+domoticz_current_month_idx = 501
+domoticz_boiler_power_idx = 500
 
+coal_megajoules = 26.0
 milliseconds_per_1g = 310.73118
