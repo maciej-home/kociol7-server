@@ -30,6 +30,15 @@ if last24h_query is not None:
     last24h = last24h_query / config.milliseconds_per_1g / 1000
     last24h = round(last24h, 2)
 
+start_time = (time_now - timedelta(hours=6)).strftime('%Y-%m-%d %H:%M:%S.%f')
+cur.execute(f'SELECT SUM(measurement_value) FROM kociol7 WHERE measurement_time > \'{start_time}\' AND measurement_time < \'{end_time}\';')
+last6h_query = cur.fetchone()[0]
+last6h = 0
+if last6h_query is not None:
+    last6h = last6h_query / config.milliseconds_per_1g / 1000
+boiler_power = last6h * config.coal_megajoules * 1000000 / (6 * 3600)
+boiler_power_kw = round(boiler_power / 1000, 1)
+
 if time_now.month < 9:
     start_time = (time_now.replace(month=9, day=1, hour=0, minute=0, second=0, microsecond=0) - relativedelta(years=1)).strftime('%Y-%m-%d %H:%M:%S.%f')
 else:
@@ -63,3 +72,4 @@ if config.domoticz_enabled:
     requests.get(f'http://{config.domoticz_host}:{config.domoticz_port}/json.htm?type=command&param=udevice&idx={config.domoticz_last24h_idx}&nvalue=0&svalue={last24h}')
     requests.get(f'http://{config.domoticz_host}:{config.domoticz_port}/json.htm?type=command&param=udevice&idx={config.domoticz_days_left_idx}&nvalue=0&svalue={days_left}')
     requests.get(f'http://{config.domoticz_host}:{config.domoticz_port}/json.htm?type=command&param=udevice&idx={config.domoticz_hours_left_idx}&nvalue=0&svalue={hours_left}')
+    requests.get(f'http://{config.domoticz_host}:{config.domoticz_port}/json.htm?type=command&param=udevice&idx={config.domoticz_boiler_power_idx}&nvalue=0&svalue={boiler_power_kw}')
