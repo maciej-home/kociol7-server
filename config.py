@@ -19,6 +19,8 @@ domoticz_feeder_left_idx = 237
 domoticz_add_switch_idx = 239
 domoticz_days_left_idx = 240
 domoticz_hours_left_idx = 245
+domoticz_last_month_idx = 455
+domoticz_current_month_idx = 501
 domoticz_boiler_power_idx = 500
 
 coal_megajoules = 26.0

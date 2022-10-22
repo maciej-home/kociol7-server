@@ -57,6 +57,23 @@ if from_september_feeder_query is not None:
     from_september_feeder = from_september_feeder_query
 feeder_left = from_september_feeder - from_september
 
+start_time = (time_now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)).strftime('%Y-%m-%d %H:%M:%S.%f')
+cur.execute(f'SELECT SUM(measurement_value) FROM kociol7 WHERE measurement_time > \'{start_time}\' AND measurement_time < \'{end_time}\';')
+current_month_query = cur.fetchone()[0]
+current_month = 0
+if current_month_query is not None:
+    current_month = current_month_query / config.milliseconds_per_1g / 1000
+    current_month = round(current_month, 0)
+
+start_time = (time_now.replace(day=1, hour=0, minute=0, second=0, microsecond=0) - relativedelta(months=1)).strftime('%Y-%m-%d %H:%M:%S.%f')
+end_time = (time_now.replace(day=1, hour=0, minute=0, second=0, microsecond=0) - timedelta(microseconds=1)).strftime('%Y-%m-%d %H:%M:%S.%f')
+cur.execute(f'SELECT SUM(measurement_value) FROM kociol7 WHERE measurement_time > \'{start_time}\' AND measurement_time < \'{end_time}\';')
+last_month_query = cur.fetchone()[0]
+last_month = 0
+if last_month_query is not None:
+    last_month = last_month_query / config.milliseconds_per_1g / 1000
+    last_month = round(last_month, 0)
+
 days_left = feeder_left / last24h_avg
 hours_left = days_left * 24
 if hours_left < 10:
@@ -73,3 +90,5 @@ if config.domoticz_enabled:
     requests.get(f'http://{config.domoticz_host}:{config.domoticz_port}/json.htm?type=command&param=udevice&idx={config.domoticz_days_left_idx}&nvalue=0&svalue={days_left}')
     requests.get(f'http://{config.domoticz_host}:{config.domoticz_port}/json.htm?type=command&param=udevice&idx={config.domoticz_hours_left_idx}&nvalue=0&svalue={hours_left}')
     requests.get(f'http://{config.domoticz_host}:{config.domoticz_port}/json.htm?type=command&param=udevice&idx={config.domoticz_boiler_power_idx}&nvalue=0&svalue={boiler_power_kw}')
+    requests.get(f'http://{config.domoticz_host}:{config.domoticz_port}/json.htm?type=command&param=udevice&idx={config.domoticz_last_month_idx}&nvalue=0&svalue={last_month}')
+    requests.get(f'http://{config.domoticz_host}:{config.domoticz_port}/json.htm?type=command&param=udevice&idx={config.domoticz_current_month_idx}&nvalue=0&svalue={current_month}')
